@@ -6,6 +6,6 @@ import com.skilldistillery.dreamtrack.entities.Dream;
 
 public interface DreamService {
 	
-	List<Dream> viewAll();
+	List<Dream> viewAllDreams();
 	Dream viewDreamById(int dreamId);
 }

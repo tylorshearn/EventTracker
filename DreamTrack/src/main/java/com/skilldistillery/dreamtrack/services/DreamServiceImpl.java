@@ -18,9 +18,8 @@ public class DreamServiceImpl implements DreamService {
 	private DreamRepository dreamRepo;
 	
 	@Override
-	public List<Dream> viewAll() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Dream> viewAllDreams() {
+		return dreamRepo.findAll();
 	}
 
 	@Override
