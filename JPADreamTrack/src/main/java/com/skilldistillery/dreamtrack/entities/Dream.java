@@ -1,4 +1,4 @@
-package com.skilldistillery.dreamtracker.entities.Dream;
+package com.skilldistillery.dreamtrack.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
