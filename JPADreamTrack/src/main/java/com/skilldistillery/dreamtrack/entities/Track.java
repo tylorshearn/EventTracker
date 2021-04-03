@@ -1,5 +1,7 @@
 package com.skilldistillery.dreamtrack.entities;
 
+import java.time.LocalDateTime;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -29,10 +31,10 @@ public class Track {
 	private Boolean isActive;
 	
 	@Column(name="started_on")
-	private Boolean startedOn;
+	private LocalDateTime startedOn;
 	
 	@Column(name="finished_on")
-	private Boolean finishedOn;
+	private LocalDateTime finishedOn;
 	
 	@Column(name="is_complete")
 	private Boolean isComplete;
@@ -45,7 +47,7 @@ public class Track {
 		super();
 	}
 
-	public Track(int id, String title, String description, Boolean isActive, Boolean startedOn, Boolean finishedOn,
+	public Track(int id, String title, String description, Boolean isActive, LocalDateTime startedOn, LocalDateTime finishedOn,
 			Boolean isComplete, Dream dream) {
 		super();
 		this.id = id;
@@ -90,19 +92,19 @@ public class Track {
 		this.isActive = isActive;
 	}
 
-	public Boolean getStartedOn() {
+	public LocalDateTime getStartedOn() {
 		return startedOn;
 	}
 
-	public void setStartedOn(Boolean startedOn) {
+	public void setStartedOn(LocalDateTime startedOn) {
 		this.startedOn = startedOn;
 	}
 
-	public Boolean getFinishedOn() {
+	public LocalDateTime getFinishedOn() {
 		return finishedOn;
 	}
 
-	public void setFinishedOn(Boolean finishedOn) {
+	public void setFinishedOn(LocalDateTime finishedOn) {
 		this.finishedOn = finishedOn;
 	}
 

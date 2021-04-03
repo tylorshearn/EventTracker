@@ -40,7 +40,7 @@ public class User {
 	@Column(name="is_active")
 	private Boolean isActive;
 	
-	@OneToMany(mappedBy="dream")
+	@OneToMany(mappedBy="user")
 	private List<Dream> dreams;
 
 	public User() {

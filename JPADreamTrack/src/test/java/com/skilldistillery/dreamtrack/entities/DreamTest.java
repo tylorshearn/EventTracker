@@ -14,8 +14,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import com.skilldistillery.dreamtrack.entities.Dream;
-
 class DreamTest {
 	
 	private static EntityManagerFactory emf;
@@ -24,7 +22,7 @@ class DreamTest {
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
-		emf = Persistence.createEntityManagerFactory("DreamTrackerPU");
+		emf = Persistence.createEntityManagerFactory("DreamTrackPU");
 	}
 
 	@AfterAll
@@ -45,9 +43,16 @@ class DreamTest {
 	}
 
 	@Test
-	@DisplayName("Dream Test")
+	@DisplayName("Dream Mapping")
 	void test() {
 		assertNotNull(dream);
-		assertEquals("Dream1", dream.getName());
+		assertEquals("Make $100 Trading Stocks This Week", dream.getTitle());
+	}
+	
+	@Test
+	@DisplayName("Dream-Track Mapping")
+	void test2() {
+		assertNotNull(dream);
+		assertEquals("Buy Shares", dream.getTracks().get(0).getDescription());
 	}
 }
