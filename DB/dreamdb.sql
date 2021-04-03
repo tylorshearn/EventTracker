@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS `dream` (
   `points_rewarded` INT NULL,
   `finished_on` DATETIME NULL,
   `user_id` INT NOT NULL,
-  `goal_date` DATETIME NULL,
+  `goal_date` TEXT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_dream_user_idx` (`user_id` ASC),
   CONSTRAINT `fk_dream_user`

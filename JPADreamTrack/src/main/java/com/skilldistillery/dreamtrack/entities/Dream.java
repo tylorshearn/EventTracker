@@ -12,6 +12,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Dream {
@@ -20,6 +23,8 @@ public class Dream {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
+	@NotBlank
+	@Size(min=7, max=65535, message="Title must be longer than 7 characters")
 	private String title;
 	
 	@Column(name="is_active")
@@ -31,16 +36,22 @@ public class Dream {
 	@Column(name="started_on")
 	private LocalDateTime startedOn;
 	
+	@Size(min=0, max=65535)
 	private String description;
 	
+	@Size(min=0, max=2147483647, message="This must be a huge accomplishment! Try reducing the points you're awarding yourself.")
 	@Column(name="points_rewarded")
 	private Integer pointsRewarded;
 	
 	@Column(name = "finished_on")
 	private LocalDateTime finishedOn;
 	
+	@Pattern(regexp="^(?:(?:31(\\/|-|\\.)(?:0?[13578]|1[02]))\\1|(?:(?:29|30)(\\/|-|\\.)(?:0?[13-9]" +
+	"|1[0-2])\\\\2))(?:(?:1[6-9]|[2-9]\\\\d)?\\\\d{2})$|^(?:29(\\\\/|-|\\\\.)0?2\\\\3(?:(?:(?:1[6-9]|[2-9]\\\\d)?(" + 
+	"?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\\\\d|2[0-8])(\\\\/|-|\\\\.)(?:(?:" + 
+	"0?[1-9])|(?:1[0-2]))\\\\4(?:(?:1[6-9]|[2-9]\\\\d)?\\\\d{2})$", message="Date must be in dd/mm/yyyy, dd-mm-yyyy, or dd.mm.yyyy format.")
 	@Column(name="goal_date")
-	private LocalDateTime goalDate;
+	private String goalDate;
 	
 	@ManyToOne
 	@JoinColumn(name="user_id")
@@ -54,7 +65,7 @@ public class Dream {
 	}
 
 	public Dream(int id, String title, Boolean isActive, Boolean isComplete, LocalDateTime startedOn,
-			String description, Integer pointsRewarded, LocalDateTime finishedOn, LocalDateTime goalDate, User user,
+			String description, Integer pointsRewarded, LocalDateTime finishedOn, String goalDate, User user,
 			List<Track> tracks) {
 		super();
 		this.id = id;
@@ -153,11 +164,11 @@ public class Dream {
 		this.finishedOn = finishedOn;
 	}
 
-	public LocalDateTime getGoalDate() {
+	public String getGoalDate() {
 		return goalDate;
 	}
 
-	public void setGoalDate(LocalDateTime goalDate) {
+	public void setGoalDate(String goalDate) {
 		this.goalDate = goalDate;
 	}
 
