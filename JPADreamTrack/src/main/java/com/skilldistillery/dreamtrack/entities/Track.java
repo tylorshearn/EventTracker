@@ -7,6 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Track {
@@ -15,8 +17,12 @@ public class Track {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
+	@NotBlank
+	@Size(min=5, max=45, message="Title must be longer than 4 characters.")
 	private String title;
 	
+	@NotBlank
+	@Size(min=10, max=65535, message="Description must be longer than 9 characters.")
 	private String description;
 	
 	@Column(name="is_active")

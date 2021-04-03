@@ -21,11 +21,11 @@ public class User {
 	private int id;
 	
 	@NotBlank
-	@Size(min=3, max=12, message="Username must be between 3 and 12 characters")
+	@Size(min=3, max=12, message="Username must be between 3 and 12 characters.")
 	private String username;
 	
 	@NotBlank
-	@Size(min=5, max=20, message="Password must be between 5 and 20 characters")
+	@Size(min=5, max=20, message="Password must be between 5 and 20 characters.")
 	private String password;
 	
 	@Column(name="profile_picture")

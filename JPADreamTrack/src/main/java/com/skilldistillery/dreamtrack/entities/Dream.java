@@ -24,7 +24,7 @@ public class Dream {
 	private int id;
 	
 	@NotBlank
-	@Size(min=7, max=65535, message="Title must be longer than 7 characters")
+	@Size(min=7, max=65535, message="Title must be longer than 6 characters.")
 	private String title;
 	
 	@Column(name="is_active")
