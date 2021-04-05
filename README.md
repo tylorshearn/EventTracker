@@ -34,6 +34,8 @@ Currently, this application is limited to utilizing certain RESTful API endpoint
 
 ### RESTful API Endpoints
 
+NOTE: "DELETION" is done by utilizing the update API endpoint, switching 'isActive' to "false" or "0".
+
 | Find Dream By User Id & Is Active      | Create Dream | Update Dream     |
 | :---        |    :----:   |          ---: |
 | GET      | Post       | Put   |
