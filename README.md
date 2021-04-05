@@ -34,8 +34,6 @@ Currently, this application is limited to utilizing certain RESTful API endpoint
 
 ### RESTful API Endpoints
 
-http://3.140.26.22:8080/DreamTrack/'ENDPOINT'
-
 | Find Dream By User Id & Is Active      | Create Dream | Update Dream     |
 | :---        |    :----:   |          ---: |
 | GET      | Post       | Put   |
