@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `username` VARCHAR(12) NOT NULL,
   `password` VARCHAR(20) NOT NULL,
   `profile_picture` VARCHAR(5000) NOT NULL DEFAULT 'https://www.vecteezy.com/free-vector/sky' COMMENT 'Attribution\n<a href=\"https://www.vecteezy.com/free-vector/sky\">Sky Vectors by Vecteezy</a>',
-  `created_on` DATETIME NOT NULL DEFAULT current_timestamp,
+  `created_on` DATETIME NULL,
   `is_active` TINYINT NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS `dream` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `title` TEXT(500) NOT NULL,
   `is_active` TINYINT NOT NULL DEFAULT 1,
-  `dreamt_on` DATETIME NOT NULL DEFAULT current_timestamp,
+  `dreamt_on` DATETIME NULL,
   `description` TEXT NOT NULL,
   `user_id` INT NOT NULL,
   `effect` TEXT NOT NULL,
@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS `dream` (
 ENGINE = InnoDB;
 
 SET SQL_MODE = '';
-DROP USER IF EXISTS dreamuser@localhost;
+-- DROP USER dreamuser@localhost;
 SET SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 CREATE USER 'dreamuser'@'localhost' IDENTIFIED BY 'dreamuser';
 
@@ -70,8 +70,8 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `dreamdb`;
-INSERT INTO `user` (`id`, `username`, `password`, `profile_picture`, `created_on`, `is_active`) VALUES (1, 'Founder', 'World01!', '\'https://www.vecteezy.com/free-vector/sky\'', DEFAULT, 1);
-INSERT INTO `user` (`id`, `username`, `password`, `profile_picture`, `created_on`, `is_active`) VALUES (2, 'Not Active', 'password', DEFAULT, DEFAULT, 0);
+INSERT INTO `user` (`id`, `username`, `password`, `profile_picture`, `created_on`, `is_active`) VALUES (1, 'Founder', 'World01!', '\'https://www.vecteezy.com/free-vector/sky\'', NULL, 1);
+INSERT INTO `user` (`id`, `username`, `password`, `profile_picture`, `created_on`, `is_active`) VALUES (2, 'Not Active', 'password', DEFAULT, NULL, 0);
 
 COMMIT;
 
@@ -81,8 +81,7 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `dreamdb`;
-INSERT INTO `dream` (`id`, `title`, `is_active`, `dreamt_on`, `description`, `user_id`, `effect`, `kind`) VALUES (1, 'Beach', 1, DEFAULT, 'Was at the beach.', 1, 'Calming', 'Normal');
-INSERT INTO `dream` (`id`, `title`, `is_active`, `dreamt_on`, `description`, `user_id`, `effect`, `kind`) VALUES (2, 'Forest', 0, DEFAULT, 'Was chased by a bear.', 1, 'Scary', 'Nightmare');
+INSERT INTO `dream` (`id`, `title`, `is_active`, `dreamt_on`, `description`, `user_id`, `effect`, `kind`) VALUES (1, 'Beach', 1, NULL, 'Was at the beach.', 1, 'Calming', 'Normal');
+INSERT INTO `dream` (`id`, `title`, `is_active`, `dreamt_on`, `description`, `user_id`, `effect`, `kind`) VALUES (2, 'Forest', 0, NULL, 'Was chased by a bear.', 1, 'Scary', 'Nightmare');
 
 COMMIT;
-
