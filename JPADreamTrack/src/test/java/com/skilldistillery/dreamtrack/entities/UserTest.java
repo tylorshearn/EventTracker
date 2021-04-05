@@ -53,13 +53,7 @@ class UserTest {
 	@DisplayName("User-Dream Mapping")
 	void test2() {
 		assertNotNull(user);
-		assertEquals(1, user.getDreams().get(0).getPointsRewarded());
+		assertEquals("Was at the beach.", user.getDreams().get(0).getDescription());
 	}
 	
-	@Test
-	@DisplayName("User-Dream-Track Mapping")
-	void test3() {
-		assertNotNull(user);
-		assertEquals("Buy Stock", user.getDreams().get(0).getTracks().get(0).getTitle());
-	}
 }

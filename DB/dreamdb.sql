@@ -25,7 +25,6 @@ CREATE TABLE IF NOT EXISTS `user` (
   `username` VARCHAR(12) NOT NULL,
   `password` VARCHAR(20) NOT NULL,
   `profile_picture` VARCHAR(5000) NOT NULL DEFAULT 'https://www.vecteezy.com/free-vector/sky' COMMENT 'Attribution\n<a href=\"https://www.vecteezy.com/free-vector/sky\">Sky Vectors by Vecteezy</a>',
-  `dream_points` INT NOT NULL DEFAULT 0,
   `created_on` DATETIME NOT NULL DEFAULT current_timestamp,
   `is_active` TINYINT NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`))
@@ -41,42 +40,16 @@ CREATE TABLE IF NOT EXISTS `dream` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `title` TEXT(500) NOT NULL,
   `is_active` TINYINT NOT NULL DEFAULT 1,
-  `is_complete` TINYINT NOT NULL DEFAULT 0,
-  `started_on` DATETIME NOT NULL DEFAULT current_timestamp,
-  `description` TEXT NULL,
-  `points_rewarded` INT NULL,
-  `finished_on` DATETIME NULL,
+  `dreamt_on` DATETIME NOT NULL DEFAULT current_timestamp,
+  `description` TEXT NOT NULL,
   `user_id` INT NOT NULL,
-  `goal_date` TEXT NULL,
+  `effect` TEXT NOT NULL,
+  `kind` VARCHAR(45) NOT NULL COMMENT 'Normal\n\nDaydream\n\nLucid dream\n\nFalse Awakening Dream\n\nNightmare',
   PRIMARY KEY (`id`),
   INDEX `fk_dream_user_idx` (`user_id` ASC),
   CONSTRAINT `fk_dream_user`
     FOREIGN KEY (`user_id`)
     REFERENCES `user` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `track`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `track` ;
-
-CREATE TABLE IF NOT EXISTS `track` (
-  `id` INT NOT NULL,
-  `title` VARCHAR(45) NOT NULL,
-  `description` TEXT NOT NULL,
-  `is_active` TINYINT NOT NULL DEFAULT 1,
-  `started_on` DATETIME NOT NULL DEFAULT current_timestamp,
-  `finished_on` DATETIME NULL,
-  `is_complete` TINYINT NOT NULL DEFAULT 0,
-  `dream_id` INT NOT NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_track_dream1_idx` (`dream_id` ASC),
-  CONSTRAINT `fk_track_dream1`
-    FOREIGN KEY (`dream_id`)
-    REFERENCES `dream` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -97,7 +70,8 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `dreamdb`;
-INSERT INTO `user` (`id`, `username`, `password`, `profile_picture`, `dream_points`, `created_on`, `is_active`) VALUES (1, 'Founder', 'World01!', '\'https://www.vecteezy.com/free-vector/sky\'', 0, DEFAULT, 1);
+INSERT INTO `user` (`id`, `username`, `password`, `profile_picture`, `created_on`, `is_active`) VALUES (1, 'Founder', 'World01!', '\'https://www.vecteezy.com/free-vector/sky\'', DEFAULT, 1);
+INSERT INTO `user` (`id`, `username`, `password`, `profile_picture`, `created_on`, `is_active`) VALUES (2, 'Not Active', 'password', DEFAULT, DEFAULT, 0);
 
 COMMIT;
 
@@ -107,17 +81,8 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `dreamdb`;
-INSERT INTO `dream` (`id`, `title`, `is_active`, `is_complete`, `started_on`, `description`, `points_rewarded`, `finished_on`, `user_id`, `goal_date`) VALUES (1, 'Make $100 Trading Stocks This Week', 1, 0, DEFAULT, 'Trade', 1, NULL, 1, '2021-04-09 00:00:00');
-
-COMMIT;
-
-
--- -----------------------------------------------------
--- Data for table `track`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `dreamdb`;
-INSERT INTO `track` (`id`, `title`, `description`, `is_active`, `started_on`, `finished_on`, `is_complete`, `dream_id`) VALUES (1, 'Buy Stock', 'Buy Shares', 1, DEFAULT, NULL, 0, 1);
+INSERT INTO `dream` (`id`, `title`, `is_active`, `dreamt_on`, `description`, `user_id`, `effect`, `kind`) VALUES (1, 'Beach', 1, DEFAULT, 'Was at the beach.', 1, 'Calming', 'Normal');
+INSERT INTO `dream` (`id`, `title`, `is_active`, `dreamt_on`, `description`, `user_id`, `effect`, `kind`) VALUES (2, 'Forest', 0, DEFAULT, 'Was chased by a bear.', 1, 'Scary', 'Nightmare');
 
 COMMIT;
 

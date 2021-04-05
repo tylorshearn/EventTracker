@@ -13,6 +13,8 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class User {
 	
@@ -31,35 +33,32 @@ public class User {
 	@Column(name="profile_picture")
 	private String profilePicture;
 	
-	@Column(name="dream_points")
-	private Integer dreamPoints;
-	
 	@Column(name="created_on")
 	private LocalDateTime createdOn;
 	
 	@Column(name="is_active")
 	private Boolean isActive;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy="user")
 	private List<Dream> dreams;
 
 	public User() {
 		super();
 	}
-
-	public User(int id, String username, String password, String profilePicture, Integer dreamPoints,
-			LocalDateTime createdOn, Boolean isActive, List<Dream> dreams) {
+	
+	public User(int id, String username, String password, String profilePicture, LocalDateTime createdOn,
+			Boolean isActive, List<Dream> dreams) {
 		super();
 		this.id = id;
 		this.username = username;
 		this.password = password;
 		this.profilePicture = profilePicture;
-		this.dreamPoints = dreamPoints;
 		this.createdOn = createdOn;
 		this.isActive = isActive;
 		this.dreams = dreams;
 	}
-	
+
 	public void addDream(Dream dream) {
 		if(dreams == null) dreams = new ArrayList<>();
 		
@@ -111,14 +110,6 @@ public class User {
 		this.profilePicture = profilePicture;
 	}
 
-	public Integer getDreamPoints() {
-		return dreamPoints;
-	}
-
-	public void setDreamPoints(Integer dreamPoints) {
-		this.dreamPoints = dreamPoints;
-	}
-
 	public LocalDateTime getCreatedOn() {
 		return createdOn;
 	}
@@ -168,7 +159,7 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", username=" + username + ", password=" + password + ", profilePicture="
-				+ profilePicture + ", dreamPoints=" + dreamPoints + ", createdOn=" + createdOn + ", isActive="
-				+ isActive + ", dreams=" + dreams + "]";
+				+ profilePicture + ", createdOn=" + createdOn + ", isActive=" + isActive + ", dreams=" + dreams + "]";
 	}
+
 }

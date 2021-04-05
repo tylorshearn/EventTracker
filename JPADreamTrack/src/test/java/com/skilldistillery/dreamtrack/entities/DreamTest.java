@@ -46,13 +46,13 @@ class DreamTest {
 	@DisplayName("Dream Mapping")
 	void test() {
 		assertNotNull(dream);
-		assertEquals("Make $100 Trading Stocks This Week", dream.getTitle());
+		assertEquals("Beach", dream.getTitle());
 	}
 	
 	@Test
-	@DisplayName("Dream-Track Mapping")
+	@DisplayName("Dream-User Mapping")
 	void test2() {
 		assertNotNull(dream);
-		assertEquals("Buy Shares", dream.getTracks().get(0).getDescription());
+		assertEquals("Founder", dream.getUser().getUsername());
 	}
 }
