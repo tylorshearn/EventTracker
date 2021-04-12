@@ -4,7 +4,9 @@ init();
 })
 
 function init() {
-    loadDreams();
+    displayDreams();
+    event.preventDefault();
+    document.newDreamForm.addDream.addEventListener('click', createDream);
 }
 
 function loadDreams() {
@@ -40,3 +42,39 @@ function displayDreams(dreams) {
         div.appendChild(li);
     }
 }
+
+function createDream(event) {
+    event.preventDefault();
+    console.log('Adding Dream');
+    let form = document.newDreamForm;
+    let dream = {
+      title: form.title.value,
+      isActive: form.isActive.value,
+      description: form.description.value,
+      userId: form.userId.value,
+      effect: form.effect.value,
+      kind: form.kind.value,  
+    };
+    postDream(dream);
+  }
+
+  function postDream(dream) {
+    console.log('Posting Dream');
+    console.log(dream);
+  
+    let xhr = new XMLHttpRequest();
+    xhr.open('POST', 'user/{userId}/dreams');
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState === 4) {
+        if (xhr.status === 201 || xhr.status === 200) {
+          let newDream = JSON.parse(xhr.responseText);
+          displayDreams(newDream);
+        } else {
+          displayError('Error creating dream: ' + xhr.status);
+        }
+      }
+    };
+  
+    xhr.setRequestHeader("Content-type", "application/json");
+    xhr.send(JSON.stringify(dream));
+  }
